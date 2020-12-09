@@ -304,6 +304,13 @@ const intervalo = setInterval(()=>{
 clearInterval(intervalo); //este intervalo no se ejecutará
 ```
 
+## PROBLEMA DE COFLA CAPITULO 9:
+### PROBLEMA Nº 1
+Cofla reprobo 2 materias, y debe enviar un formulario para poder registrarse en las mesas de examen:
+- El formulario debe contener Nombre, Mail y Materia Adeudada.
+- Validar Mails y nombres.
+- Enviar al servidor de manera pulida
+
 
 
 # Capitulo 10:

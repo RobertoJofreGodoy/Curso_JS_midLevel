@@ -1,0 +1,14 @@
+body{
+    font-family: sans-serif;
+}
+
+.contenedor-1{
+    background: red;
+    padding: 20px;
+}
+.input-test{
+    border: 1px solid black;
+    border-radius: 5px;
+    outline: none;
+    padding: 5px;
+}
