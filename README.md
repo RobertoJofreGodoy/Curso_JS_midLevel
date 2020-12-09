@@ -318,7 +318,110 @@ Los datos de Cofla y del resto de los alumnos ya fueron almacenados correctament
 - Poder elegir ciando se rinde el examen
 - En caso de que el profesor confirme la fecha, los datos se deben actualizar y reemplazar el espacio de selección de semana por la semana seleccionada.
 
-# Capitulo 10:
+# Capitulo 10: Control de Flujo y manejo de errores
+- **sentencias de bloque**: nos permite tener bloques de codigo con sus propias variables
+```js
+let nombre = "Pedro";
+{
+    let nombre = "Juan"; 
+    alert(nombre);
+}
+```
+- **sentencias de control de flujo**: nos permite colocar condiciones para que se ejecute una sentencia de bloque:
+```js
+let nombre = "Pedro";
+if (nombre!= "Pedro"){
+    let nombre = "Juan"; 
+    alert(nombre);
+}
+```
+- **sentencias de manejo de excepciones**: nos permite controlar los errores del programa 
+
+### sentecia Switch
+sentencia que nos permite ejecutar un codigo dependiendo del valor de su parámetro, es muy parecido a If
+```js
+let fruta = "pera";
+
+switch (fruta) {
+    case "manzana":
+        console.log("Es una manzana"); 
+        break;
+    case "banana":
+        console.log("Es una banana"); 
+        break; 
+    case "pera":
+        console.log("Es una pera"); 
+        break; 
+
+    default:
+        console.log("No es una fruta"); 
+        break;
+}
+```
+## Excepciones y Tipos de Excepciones
+Una excepcion es un error que salta durante la ejecución de nuestro programa.
+
+Tenemos varios tipos de excepciones:
+- **Excepciones ECMAScript**: Excepciones relacionadas a la especificación de JavaScript:
+    - **EvalError**: Crea una instancia que representa un error que ocurre con respecto a la función global eval().
+    - **InternalError**: Crea una instancia que representa un error que ocurre cuando se produce un error interno en el motor de JavaScript. Por ejemplo: "demasiada recursividad".
+    - **RangeError**: Crea una instancia que representa un error que ocurre cuando una variable numérica o parámetro está fuera de su rango válido.
+    - **ReferenceError**: Crea una instancia que representa un error que ocurre cuando se quita la referencia a una referencia no válida.
+    - **SyntaxError**: Crea una instancia que representa un error de sintaxis.
+    - **TypeError**: Crea una instancia que representa un error que ocurre cuando una variable o parámetro no es de un tipo válido.
+    - **URIError**: Crea una instancia que representa un error que ocurre cuando encodeURI() o decodeURI() pasan parámetros no válidos.
+
+- **DOMException y DOMError**: Excepciones relacionadas al DOM
+    - Documentación de [DOMException](https://developer.mozilla.org/es/docs/Web/API/DOMException)
+    - Documentación de [DOMError](https://developer.mozilla.org/es/docs/Web/API/DOMError)
+
+
+## try... catch
+Es una sentencia de manejo de excepciones
+Try no puede ejecutarse sin el Catch
+Try catch no detecta errores de Sintaxis, sino errores de comportamiento
+NOTA: **Un Error es un Objeto**.
+
+```js
+try {
+    zsdsadasdasda //variable no definida
+}
+
+catch(error){
+    console.log(`ocurrió un error`); 
+}
+```
+- **Catch Incondicional**: Cuando el bloque Catch no tiene ninguna condición.
+- **Catch Condicional**: Cuando el bloque Catch contiene una condición.
+
+- **finally**: sentencia de **try... catch** que se ejecuta pase lo que pase y tiene prioridad sobre las sentecias try y catch:
+```js
+try {
+    console.log(`No hay error`);
+}
+catch(error){
+    console.log(`ocurrió un error`); 
+} finally{
+    console.log(`Me ejecuto igual`);
+}
+```
+- **throw**: sentencia que nos permite lanzar una excepcion, y como es un objeto, podemos manejarlo como tal.
+```js
+try {
+    throw {
+        error: `nombre del error`,
+        info: `Información del error`
+    };
+}
+catch(e){
+    console.log(e); 
+} finally{
+    console.log(`Me ejecuto igual`);
+}
+```
+
+Es importante saber cuando utilizar try catch, si sabemos que algo da un error, lo mejor es intentar solucionarlo.
+
 # Capitulo 11:
 # Capitulo 12:
 # Capitulo 13:
