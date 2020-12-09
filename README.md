@@ -101,7 +101,7 @@ Cofla llega a su casa y abre una pagina y apreta F11, ahora no puede ver ni la b
 
 # Capitulo 8: Debuggin
 
-Buscar Google Dveloper Tools
+Buscar Google Developer Tools
 
 
 # Capitulo 9: Eventos
@@ -311,7 +311,12 @@ Cofla reprobo 2 materias, y debe enviar un formulario para poder registrarse en 
 - Validar Mails y nombres.
 - Enviar al servidor de manera pulida
 
-
+### PROBLEMA Nº 2
+Los datos de Cofla y del resto de los alumnos ya fueron almacenados correctamente, ahora debemos crear un sistema que les permita a los profesores visualizar esta informacion y definir cuando los alumnos van a rendir el examen.
+- Interfaz agradable y atractiva
+- Contener datos de manera estructurada
+- Poder elegir ciando se rinde el examen
+- En caso de que el profesor confirme la fecha, los datos se deben actualizar y reemplazar el espacio de selección de semana por la semana seleccionada.
 
 # Capitulo 10:
 # Capitulo 11:
