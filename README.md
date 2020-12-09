@@ -99,8 +99,213 @@ Después de aprobar, Cofla se compra una mejor computadora para poder programar 
 Cofla llega a su casa y abre una pagina y apreta F11, ahora no puede ver ni la barra de marcadores, ni el protocolo, ni la URL, ni ninguna infroamción que nos puede otorgar la interfaz que contiene el navegador.
 - Crear un sistema que muestre los suficientes datos como para conocer el sitio web.
 
-# Capitulo 8:
-# Capitulo 9:
+# Capitulo 8: Debuggin
+
+Buscar Google Dveloper Tools
+
+
+# Capitulo 9: Eventos
+Cualquier cambio que ocurre en la página.
+- **Event Handlers**: (Manejador de eventos). Un Event Handler tiene funciones y propiedades que nos permite reconocer que evento está ocurriendo, pero esto ya no se utiliza.
+- **Event Listeners**: se escriben sin camelCase
+- **Objeto Event**: 
+- **Event flow**: El orden en el que se van a ejecutar los eventos, desde el evento más especifico (asociados a elementos Hijos) al menos especifico (elementos contenedores), este flujo de eventos se llama **Event Bubbling**, que es el flujo que viene por defecto.
+```html
+<body>
+    <div class="contenedor-rojo">
+        <div class="contenedor-azul">
+            <button class="button">Botón</button>
+        </div>
+    </div>
+</body>
+```
+```js
+const button = document.querySelector(".button");
+const contenedorAzul = document.querySelector(".contenedor-azul"); 
+const contenedorRojo = document.querySelector(".contenedor-rojo"); 
+
+button.addEventListener("click", (e) =>{
+    alert("Di click en el Botón");
+});
+
+contenedorAzul.addEventListener("click", (e) =>{
+    alert("Di click en el contenedor Azul");
+});
+
+contenedorRojo.addEventListener("click", (e) =>{
+    alert("Di click en el contenedor Rojo");
+});
+```
+Si hacemos *"click"* en el Botón, nos saltará el *Alert* del Botón, después el del contenedor Azul y después el del Rojo, debido a que el Event Flow va desde el elemento Hijo al Padre.
+
+- **Event Bubbling** vs **Event Capturing**: Event Capturing nos permite modificar el flujo por defecto, permitiendo que un evento asociado a un elemento Padre se ejecute antes que otro asociado al hijo, esto se logra colocando el valor *"true"* al final del *"addEventListener"*
+```js
+button.addEventListener("click", (e) =>{
+    alert("Di click en el Botón");
+});
+
+contenedorAzul.addEventListener("click", (e) =>{
+    alert("Di click en el contenedor Azul");
+});
+
+contenedorRojo.addEventListener("click", (e) =>{
+    alert("Di click en el contenedor Rojo");
+}, true);
+```
+Ahora al hacer *"click"* en el Botón, nos saltará el *Alert* del contenedor Rojo, después el del Botón y al final el del contenedor Azul, esto debido a que el Botón y el contenedor Azul siguen con **Event Bubbling** pero el contenedor Rojo está con **Event Capturing**
+
+- **eventStopPropagation()**: Esta función nos permite detener la ejecución de todos los Eventos asociados:
+
+```js
+button.addEventListener("click", (e) =>{
+    alert("Di click en el Botón");
+    e.stopPropagation();
+});
+
+contenedorAzul.addEventListener("click", (e) =>{
+    alert("Di click en el contenedor Azul");
+});
+
+contenedorRojo.addEventListener("click", (e) =>{
+    alert("Di click en el contenedor Rojo");
+});
+```
+Ahora si hacemos *"click"* en el Botón, solo se ejecutará el *Alert* del Botón.
+
+## Eventos del Mouse
+
+- **click**: ocurre con un click
+```js
+button.addEventListener("click", (e) =>{
+    alert("Di click en el Botón");
+});
+```
+- **dblclick**: ocurre con un doble click 
+```js
+button.addEventListener("dblclick", (e) =>{
+    alert("Di click en el Botón");
+});
+```
+- **mouseover**: ocurre cuando el puntero se mueve sobre un elemento o sobre uno de sus hijos.
+```js
+contenedorAzul.addEventListener("mouseover", (e) =>{
+    alert("Di click en el contenedor Azul");
+});
+```
+- **mouseout**: ocurre cuando el puntero se mueve fuera de un elemento o de sus elementos secundarios
+```js
+contenedorAzul.addEventListener("mouseout", (e) =>{
+    alert("Di click en el contenedor Azul");
+});
+```
+- **contextmenu**: ocurre con un click en el botón derecho en un elemento para abrir un menú contextual.
+```js
+contenedorAzul.addEventListener("contextmenu", (e) =>{
+    alert("Di click en el contenedor Azul");
+});
+```
+- **mouseenter**: ocurre cuando el puntero se mueve sobre un elemento (**SOLO PARA INTERNET EXPLORER**)
+- **mouseleave**: ocurre cuando el puntero se mueve fuera de un elemento. (**SOLO PARA INTERNET EXPLORER**)
+- **mousedown**: ocurre cuando un usuario aprieta un botón del mouse sobre un elemento sin necesidad de soltar el botón.
+- **mouseup**: ocurre cuando un usuario suelta un botón del mouse sobre un elemento.
+- **mousemove**: ocuure cuando el puntero se mueve mientras está sobre un elemento.
+
+## Eventos del Teclado
+
+```html
+<body>
+    <input type="text" class="input-test">
+</body>
+```
+Estos eventos se ejecutan en el siguiente orden, estén o no en ese orden en el código
+- **keydown**: ocurre cuando una tecla se presiona
+- **keypress**: ocure cuando una tecla se presiona y suelta en un elemento
+- **keyup**: ocurre cuando una tecla se deja de presionar
+
+```js
+const input = document.querySelector(".input-test"); 
+
+input.addEventListener("keydown", (e)=>{
+    console.log(`una tecla fue presionada`);
+});
+
+input.addEventListener("keypress", (e)=>{
+    console.log(`un usuario presionó una tecla y la soltó`);
+});
+
+input.addEventListener("keyup", (e)=>{
+    console.log(`una tecla fue soltada`);
+});
+```
+
+## Eventos de la Interfaz
+
+```html
+<body>
+    <img src="https://wallpaperaccess.com/full/1971964.jpg" alt="" class="img-test">
+</body>
+```
+- **error**: ocurre cuando sucede un error durante la carga de un archivo multimedia.
+```js
+const img = document.querySelector(".img-test");
+
+img.addEventListener("error",(e)=>{
+    console.log("Ocurrió un error en la carga del archivo");
+});
+```
+- **load**: ocurre cuando un objeto se ha cargado.
+```js
+addEventListener("load",(e)=>{ //con este codigo hacemos referencia al Objeto Window
+    console.log("se cargó el sitio");
+});
+```
+- **beforeunload**: ocurre antes de que el documento esté a punto de cargarse.
+- **unload**: ocurre una vez que se ha descargado una página.
+- **resize**: ocurre cuando se cambio el tamaño de la vista del documento.
+```js
+addEventListener("resize",(e)=>{
+    console.log("se cambío el tamaño");
+});
+```
+- **scroll**: ocurre cuando se desplaza la barra de desplazamiento de un elemento.
+- **select**: ocurre despuésde que el usuario selecciona algún texto de < input> o < textarea>
+
+más eventos en https://www.w3schools.com/jsref/obj_events.asp
+
+## Temporizadores
+
+- **setTimeout()**: Nos permite indicarle una funcion como primer parámetro, y como segundo parámetro le indicamos en cuanto tiempo lo queremos ejecutar (en mls)
+```js
+setTimeout(()=>{
+    alert("hola")
+},2000);
+```
+- **setInterval()**: Nos permit ejecutar una función CADA los mls que le indiquemos
+```js
+setInterval(()=>{
+    alert("hola")
+},2000);
+```
+- **clearTimeout()**: Nos permite anular un **setTimeout()**, para ello, tenemos que guardar el **setTimeout()** en una variable y pasarla como parámetro a **clearTimeout()**
+```js
+const temporizador = setTimeout(()=>{
+    alert("hola")
+},2000);
+
+clearTimeout(temporizador); //este temportizador no se ejecutará
+```
+
+- **clearInterval()**: Nos permite anular un **setInterval()**, para ello, tenemos que guardar el **setInterval()** en una variable y pasarla como parámetro a **clearInterval()**
+```js
+const intervalo = setInterval(()=>{
+    alert("hola")
+},2000);
+
+clearInterval(intervalo); //este intervalo no se ejecutará
+```
+
+
+
 # Capitulo 10:
 # Capitulo 11:
 # Capitulo 12:
