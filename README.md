@@ -422,6 +422,14 @@ catch(e){
 
 Es importante saber cuando utilizar try catch, si sabemos que algo da un error, lo mejor es intentar solucionarlo.
 
+## PROBLEMA DE COFLA CAPITULO 10:
+### PROBLEMA Nº 1
+Cofla ya dió sus examenes, pero se rompió el sistema de inscripción de notas
+- Interfaz para introducir nota
+- Validar que no haya errores
+- Promediar Notas con Trabajos
+- Si el Promedio es mayor a 7/10: Aprobar
+
 # Capitulo 11:
 # Capitulo 12:
 # Capitulo 13:
