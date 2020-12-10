@@ -430,6 +430,34 @@ Cofla ya dió sus examenes, pero se rompió el sistema de inscripción de notas
 - Promediar Notas con Trabajos
 - Si el Promedio es mayor a 7/10: Aprobar
 
-# Capitulo 11:
+
+# Capitulo 11: Código Obsoleto
+
+## ¿Cuando algo se vuelve obsoleto?
+- **deprecated**:
+- **Inútil**: cuando alguna funcion o metodo se remueve del lenguaje, por lo que no hace nada
+- **No recomendado**: puede no estar recomendado por varios motivos, bugs, rendimiento...
+- **Está por ser reemplazado**: se volverá obsoleto en poco tiempos
+- **Hay mejores formas de hacerlo**: como el "*createDocumentFragment()*" que hace más eficiente la inserción de elementos en el DOM, aunque no reemplaza al "*appendChild()*" si nos ofrece un camino más eficiente.
+
+Tener código obsoleto puede afectar negativamente en varios aspectos... puede consumir muchos recursos, contener Bugs o fallos, ser un código excesivamente largo e incluso en el SEO 
+
+### ¿Cómo verificar si mi código está obsoleto?
+- 1 de cada 3 WEBS utiliza librerías de JavaScript obsoletas.
+- Verificar si tienen o usan funciones, métodos objetos o metodologías obsoletas.
+- Verificar en los sitios webs basados en estandares oficiales
+
+Webs recomendadas:
+
+https://developer.mozilla.org/es/
+https://www.w3schools.com/
+
+
+### Detectar Navegadores Obsoletos
+- **Buscar en google**: Deteccion del navegador y cobertura a múltiples navegadores
+
+https://developer.mozilla.org/es/docs/Detecci%C3%B3n_del_navegador_y_cobertura_a_m%C3%BAltiples_navegadores
+
+
 # Capitulo 12:
 # Capitulo 13:
