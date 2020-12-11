@@ -459,5 +459,149 @@ https://www.w3schools.com/
 https://developer.mozilla.org/es/docs/Detecci%C3%B3n_del_navegador_y_cobertura_a_m%C3%BAltiples_navegadores
 
 
-# Capitulo 12:
+# Capitulo 12: Callbacks, Promesas, Await & Async
+## Callback
+Un callback es una funcion dentro de otra función
+
+```js
+function prueba(callback) {
+    callback("Pedro");
+}
+
+function decirNombre(nombre) {
+    console.log(nombre);
+}
+
+prueba(decirNombre); 
+//La función *prueba()* llama a la función *decirNombre()* y le pasa como parámetro el callback
+```
+También podemos ejecutar una funcion al momento de llamar a la función *prueba()*.
+```js
+function prueba(callback) {
+    callback("Pedro");
+}
+
+prueba(function (nombre) {
+    console.log(nombre);
+});
+```
+También se puede ejecutar una Arrow function dentro de una function con callbak
+```js
+function prueba(callback) {
+    callback("Pedro");
+}
+
+prueba(nombre => console.log(nombre));
+```
+
+## Promesas
+Las **Promesas son un Objeto** que adentro tiene 2 callbacks:
+- **resolve**: terminación de una operación asíncrona.
+- **reject**: fracaso de una operación asíncrona.
+
+En resumen, las promesas nos permiten trabajar una funcion, y en caso de que se ejecute correctamente nos devuele **resolve**, de lo contrario **reject**, pero nosotros indicamos cómo debe comportarse dicha funcion.
+
+Los Objetos Promesas tienen encapsulados sus datos, por lo que no podemos acceder a ellos facilmente, para ello utilizamos las sentencias **then()** y **catch()**.
+
+- **then()**: nos permite acceder al valor de **resolve**
+- **catch()**: nos permite acceder al valor de **reject**
+
+```js
+let nombre = "Roberto";
+//Dentro del objeto Promise vamos a ejecutar una funncion con 2 callbacks
+const promesa = new Promise((resolve, reject)=>{
+    if (nombre !== "Roberto") {
+        reject (`Lo siento, el nombre es incorrecto`);
+    } else{
+        resolve(nombre)
+    }
+});
+
+//Vemos el resultado de la promesa creada anteriormente
+//Utilizamos *then()* para ver el callback *resolve* 
+// y *catch()* para el callback *reject*
+promesa.then((resultado)=>{
+    console.log(resultado);
+}).catch((e)=>{
+    console.log(e);
+});
+```
+## Async/Await
+Al momento de cargar una página web, no todos los datos o recursos se cargarán al mismo tiempo, y es posible que una función utilice un elemento que todavia no se haya cargado en la página, por lo tanto esta funcion no se ejecutará correctamnete
+El asincronismo resuleve este problema, permitiendo que una función se ejecute cuando los elementos, parametro o datos se encuentren disponibles.
+Esto es extremadamente útil cuando nustra página depende de llamadas a un servidor, ya que algunos datos pueden tardarse y algunas funcionalidades deben esperar.
+
+Veamos como funciona el asincronismo:
+Simularemos la recepción de datos de un servidor con un *setTimeout()*:
+
+```js
+// Simulamos una llamada a un servidor con un tiempo Random en segundos
+const obtenerInformacion = (text) =>{
+    return new Promise((resolve, reject)=>{
+        setTimeout(()=>resolve(text),Math.random()*1000)
+    })
+}
+
+//Las promesas, al ser asincronas, permiten que la funcion se ejecute en el momento de obtener la informacion
+obtenerInformacion("1-Roberto").then(resultado=> console.log(resultado));
+```
+
+#### Pero... ¿Qué ocurre cuando queremos más de un dato, y los necesitamos en orden?
+
+```js
+const obtenerInformacion = (text) =>{
+    return new Promise((resolve, reject)=>{
+        setTimeout(()=>resolve(text),Math.random()*1000)
+    })
+}
+
+obtenerInformacion("1-Roberto").then(resultado=> console.log(resultado));
+obtenerInformacion("2-karina").then(resultado=> console.log(resultado));
+obtenerInformacion("3-Felipe").then(resultado=> console.log(resultado));
+```
+En este caso queremos ver los nombres en el orden indicado, pero el servidor nos los envia de manera desordenada, por lo que en la página los veremos en el orden en el que nos llegan, que muy probablemente no sea el orden que queremos.
+
+para ello, JavaScript tiene **Async/Await**
+
+- **async**: hace que una función devuelva una promesa
+- **await**: hace que una función espere una promesa
+
+```js
+const obtenerInformacion = (text) =>{
+    return new Promise((resolve, reject)=>{
+        setTimeout(()=>resolve(text),Math.random()*1000)
+    })
+};
+
+const mostrarData = async()=>{ //Le indicamos a la funcion que devuelva una promesa
+    await obtenerInformacion("1-Roberto").then(resultado=> console.log(resultado));
+    await obtenerInformacion("2-karina").then(resultado=> console.log(resultado));
+    await obtenerInformacion("3-Felipe").then(resultado=> console.log(resultado));
+    //Await espera que la promesa le llegue para ejecutar el siguiente código
+}; 
+
+//Por lo que siempre obtendremos la informaicón en el orden que deseamos.
+mostrarData();
+```
+
+Al indicar a una funcion que sea **async/await** automaticamente espera una promesa, por lo que no necesitamos colocar **then()**, con **await** accedemos automaticamente al valor de la promesa.
+```js
+const obtenerInformacion = (text) =>{
+    return new Promise((resolve, reject)=>{
+        setTimeout(()=>resolve(text),Math.random()*200)
+    })
+};
+
+const mostrarData = async()=>{
+    data1 = await obtenerInformacion("1-Roberto")
+    data2 = await obtenerInformacion("2-karina")
+    data3 = await obtenerInformacion("3-Felipe")
+    console.log(data1);
+    console.log(data2);
+    console.log(data3);
+};
+mostrarData();
+```
+
+
 # Capitulo 13:
