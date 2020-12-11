@@ -459,7 +459,7 @@ https://www.w3schools.com/
 https://developer.mozilla.org/es/docs/Detecci%C3%B3n_del_navegador_y_cobertura_a_m%C3%BAltiples_navegadores
 
 
-# Capitulo 12: Callbacks, Promesas, Await & Async
+# Capitulo 12: Callbacks, Promesas, Async/Await
 ## Callback
 Un callback es una funcion dentro de otra función
 
