@@ -542,7 +542,7 @@ const obtenerInformacion = (text) =>{
     })
 }
 
-//Las promesas, al ser asincronas, permiten que la funcion se ejecute en el momento de obtener la informacion
+//Las promesas, al ser asincronas, permiten que la funcion se ejecute en el momento de obtener la información
 obtenerInformacion("1-Roberto").then(resultado=> console.log(resultado));
 ```
 
@@ -602,6 +602,10 @@ const mostrarData = async()=>{
 };
 mostrarData();
 ```
+## PROBLEMA DE COFLA CAPITULO 12:
+Cofla está en el último año y necesita recuperar todas sus notas para que le puedan decir si efectivamente pasó al último semestre. 
+Pero hay un problema, estas notas están almacenadas en otro servidor.
 
+- Crear un sistema que almacene toda la información de las materias y las muestre en pantalla de forma ordenada.
 
 # Capitulo 13:
