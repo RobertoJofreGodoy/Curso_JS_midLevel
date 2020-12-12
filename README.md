@@ -608,4 +608,63 @@ Pero hay un problema, estas notas están almacenadas en otro servidor.
 
 - Crear un sistema que almacene toda la información de las materias y las muestre en pantalla de forma ordenada.
 
-# Capitulo 13:
+# Capitulo 13: Peticiones HTTP
+cliente & servidor: cliente es la interfaz frontend y el servidor almacena y procesa la infromación.
+Las Peticiones HTTP son peticiones de información del cliente hacia el servidor
+Peticiones HTTP **No guardan información**
+
+## Datos Estructurados (JSON)
+JSON: JavaScript Object Notation
+JSON es una sintazis para almacenar e intercambiar datos. JSON es texto escrito como Notación de Objetos JavaScript.
+La Sintaxis de un JSON es como la de un Array Asociativo en JS (aunque no existan como tal)
+
+```js
+//Este sería un JSON con la información de John
+let nuevoJSON = {
+    name: "John",
+    age: 31,
+    city: "New York"
+};
+
+//También lo podemos escribir en una linea
+let nuevoJSON = {name: "John", age: 31, city: "New York"};
+```
+Esta es la sintaxis que se utiliza para intercambiar información.
+un JSON puede estar **Serializado** o **Deserealizado**.
+- **Serializado**: Es la sintaxis que debe tener un JSON para poder ser enviado, tanto desde un *cliente* como de un *servidor*, para estar Serealizado, todo el contenido del *JSON* debe ser un **String**:
+```js
+let nuevoJSON = `{name: "John", age: 31, city: "New York"}`;
+//Este JSON está Serializado
+```
+- **Deserealizado**: Cuando el contenido del JSON deja de ser un **String** para ser un **Objeto**, que es la manera en la que podemos trabajar con él
+```js
+let nuevoJSON = {name: "John", age: 31, city: "New York"};
+//Este JSON está Deserealizado
+```
+### ¿Cómo Serealizamos y Deserealizamos un JSON?
+JSON tiene 2 métodos que nos permiten serializar y deserealizar su contenido:
+- **JSON.stringify()**: Nos permite serializar un JSON, se utiliza para enviar un JSON a un servidor.
+- **JSON.parse()**: Nos permite deserializar un JSON, se utiliza al recibir un JSON de un servidor
+
+```js
+let nuevoJSON = {name: "John", age: 31, city: "New York"};
+nuevoJSON = JSON.stringify(nuevoJSON);
+//convertimos el *nuevoJSON* a un JSON serealizado
+
+nuevoJSON = JSON.parse(nuevoJSON);
+console.log(nuevoJSON);
+//Deserealizamos nuevamente el JSON para trabajar con él
+```
+
+- **JSON polyFill**: son funciones que simulan la funcionalidad de cualquier elemento de JavaScript para navegadores anitguos que no soportan el lenguaje
+
+## AJAX
+Para trabajar con AJAX es necesario tener un servidor.
+AJAX (**Asynchronous JavaScript And XML**) nos permite enviar consultas y recibir respuestas del servidor sin tener que recargar la página, lo hace de manera asíncrona.
+
+- Objeto **XMLHttpRequest**: Es la piedra angular de AJAX, el Objeto **XMLHttpRequest** se puede utilizar para intercambiar datos entre la página web y el Servidor detrás de escena. Esto quiere decir que es posible actualizar partes de una página web sin recargar toda la página.
+
+```js
+const peticion = new XMLHttpRequest;
+```
+seguir en https://www.w3schools.com/js/js_ajax_http.asp 
