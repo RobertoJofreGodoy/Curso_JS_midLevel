@@ -499,7 +499,7 @@ Las **Promesas son un Objeto** que adentro tiene 2 callbacks:
 - **resolve**: terminación de una operación asíncrona.
 - **reject**: fracaso de una operación asíncrona.
 
-En resumen, las promesas nos permiten trabajar una funcion, y en caso de que se ejecute correctamente nos devuele **resolve**, de lo contrario **reject**, pero nosotros indicamos cómo debe comportarse dicha funcion.
+En resumen, las promesas nos permiten trabajar una función, y en caso de que se ejecute correctamente nos devuele **resolve**, de lo contrario **reject**, pero nosotros indicamos cómo debe comportarse dicha funcion.
 
 Los Objetos Promesas tienen encapsulados sus datos, por lo que no podemos acceder a ellos facilmente, para ello utilizamos las sentencias **then()** y **catch()**.
 
@@ -832,4 +832,85 @@ peticion.send(JSON.stringify({
     "name": "Neo",
     "job": "The Chosen One"
 }));
+``` 
+
+## Fetch
+**Fetch** viene a reemplazar a AJAX y al objeto XMLHttpRequest, Fecth trabaja con promesas.
+Al trabajar con **Fetch**, este siempre nos devuelve una **promesa encapsulada** a la que podemos acceder con los métodos propios de Fecth.
+
+**Fetch** utiliza el método GET por defecto
+
+Para inicializar Fetch solo debemos instanciarlo como método y pasarle la url del archivo o servidor:
+```js
+peticion = fetch("json.txt"); //Método GET por defecto
+console.log(peticion);
+//Esto nos mostrará: Promise {<pending>}
+``` 
+Y cómo es una promesa, para acceder a los datos debemos utilizar el método **then()**
+```js
+peticion = fetch("json.txt");
+peticion.then(res => console.log(res)); 
+/*Ahora nos devuelve la promesa, el problema, es que 
+el valor de esta promesa se encuentra encapsulado
+*/
+``` 
+### Métodos de Fetch
+Para acceder al valor de la promesa, **Fetch** tiene sus propios métodos:
+- **text()**: toma la respuesta de la promesa y la lee en su totalidad. Devuelve otra promesa que se resuelve como **string**, la respuesta **siempre se decodifica usando UTF-8**.
+- **json()**: toma la respuesta de la promesa y la lee en su totalidad. Devuelve una promesa que se resuelve con la Deserealización (**JSON.parse()**) del texto.
+- **blob()**: toma la respuesta de la promesa y la lee en su totalidad. Devuelve una promesa que se resuelve con un **blob**. (BUSCAR INFO)
+- **formData()**: toma la respuesta de la promesa y la lee en su totalidad. Devuelve una promesa que se resuelve con un **objeto FormData**. (BUSCAR INFO)
+- **arrayBuffer()**: toma la respuesta de la promesa y la lee en su totalidad. Devuelve una promesa que se resuelve con un **arrayBuffer**. (BUSCAR INFO)
+
+```js
+peticion = fetch("json.txt");
+
+peticion
+    /*Accedemos a la promesa creada por Fetch
+    y a la respuesta (archivo) le indicamos el método *.text()*
+    que nos devolverá otra promesa que se resuelve con todo el contenido del archivo convertido a *String*
+    */
+    .then(archivo => archivo.text() 
+
+    /*
+    Cómo *.text()* nos devuelve otra promesa, la resolvemos con *then()*
+    y la resolución contiene todo el texto del archivo al que accedimos con Fetch
+    */
+    .then(texto => console.log(texto)) //veremos el contenido de json.txt
+);
+``` 
+Ahora si queremos que nos devuelva directamente un objeto, debemos utilizar el método **json()**
+```js
+peticion = fetch("json.txt");
+
+peticion
+    .then(archivo => archivo.json() //Crea una promesa que se resuelve con un Objeto JSON
+    .then(texto => console.log(texto))
+);
+``` 
+Fetch nos permite hacer un request HTTP y obtener la respuesta así de simple, es más, el código aún se puede simplificar:
+
+```js
+fetch("json.txt") //No es necesario instanciar Fetch en una variable
+    .then(archivo => archivo.json())
+    .then(texto => console.log(texto))
+``` 
+### Petición POST con Fetch
+**NOTA**: la petición post la haremos hacia la siguiente [página](https://reqres.in/).
+Como ya se indicó, **Fetch** utiliza de manera predeterminada el método GET como petición, para módificar esto, **Fetch** nos permite pasarle una 2do parámetro cómo **Objeto** después de la URL.
+Este Objeto nos permite indicarle el **método**, el **Body** de la petición (los datos) y los **headers** que son otro **Objeto** que contendría lo mismo que utilizamos para el método **setRequestHeader** de **AJAX**:
+
+```js
+fetch("https://reqres.in/api/users",
+    {
+        method : "POST",
+        body : JSON.stringify(
+            {
+                "name":"morpheus",
+                "job":"leader"              
+            }),
+        headers : {"Content-type":"application/json"}
+    })
+    .then(archivo => archivo.json())
+    .then(texto => console.log(texto))
 ``` 
