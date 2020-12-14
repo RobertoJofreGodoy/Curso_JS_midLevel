@@ -665,7 +665,7 @@ AJAX (**Asynchronous JavaScript And XML**) nos permite enviar consultas y recibi
 ### Objeto XMLHttpRequest
 - Objeto **XMLHttpRequest**: Es la piedra angular de AJAX, el **Objeto XMLHttpRequest** se puede utilizar para intercambiar datos entre la página web y el Servidor detrás de escena. Esto quiere decir que es posible actualizar partes de una página web sin recargar toda la página.
 
-De la siguiente manera creamos un nuevo objeto **XMLHttpRequest**:
+De la siguiente manera instanciamos un nuevo objeto **XMLHttpRequest**:
 ```js
 const peticion = new XMLHttpRequest;
 ```
@@ -684,7 +684,7 @@ if (window.XMLHttpRequest) { //en caso de que exista el Objeto XMLHttpRequest, l
 ``` 
 No cuesta nada añadir esta linea de código, se recomienda utilizarla.
 
-### Enviar una solicitud a un servidor
+### Enviar una solicitud a un servidor (HTTP Request)
 El **objeto XMLHttpRequest** se utiliza para **intercambiar datos** con un servidor
 Para enviar una solicitud a un servidor, utilizamos los métodos **open()** y **send()** del objeto XMLHttpRequest.
 
@@ -789,9 +789,10 @@ const peticion = new XMLHttpRequest;
 peticion.addEventListener("load",()=>{
     let respuesta;
     respuesta = peticion.response
-    console.log(JSON.parse(respuesta).nombre); 
+    console.log(JSON.parse(respuesta).name); 
     /*
-    Deserealizamos el JSON y ahora podemos acceder a sus propiedades como un objeto
+    Deserealizamos el JSON y ahora podemos acceder a sus propiedades como un Objeto
+    Obtenemos "John"
     */
 });
 
@@ -801,6 +802,34 @@ peticion.send();
 
 ### Peticiones POST
 
+##### Para explicar POST usaremos la siguietne página que nos permite hacer peticiones de firentes tipos [reqres](https://reqres.in/)
 
+El envío de datos de una petición POST es parecido al de un formulario HTML, debemos utilizar un método del **Objeto XMLHttpRequest** llamado **setRequestHeader()**.
+- **setRequestHeader()**: funciona con 2 parámetros (header,value):
+    - **header**: especifica el tipo de header (normalmente **"Content-Type"**)
+    - **value**: especifica el valor del header (**application/x-www-form-urlencoded** o **multipart/form-data**)
+        - **application/x-www-form-urlencoded**: Los valores son codificados en tuplas llave-valor separadas por '&', con un '='  entre la llave y el valor.
+        - **multipart/form-data**: Cada valor es enviado como un dato de bloque ("input de un formulario"), con un delimitador como separador definido por el usuario ("espacio entre campos"). Éstas llaves son colocadas en el Content-Disposition , la cual es cómo está estructurada cada parte del HEADER en una petición HTTP.
+Ese método debe ser declarado despues del método **open()** y antes del método **send()** del **Objeto XMLHttpRequest** 
+Al ejecutarse correctamente una petición POST está devolverá un **status == 201**
 
+```js
+let peticion;
+if (window.XMLHttpRequest) peticion = new XMLHttpRequest;
+else peticion = new ActiveXObject("Microsoft.XMLHTTP");
 
+peticion.addEventListener("load",()=>{
+    let respuesta;
+    respuesta = peticion.response
+    console.log(JSON.parse(respuesta));
+});
+
+peticion.open("POST","https://reqres.in/api/users");
+
+peticion.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+peticion.send(JSON.stringify({
+    "name": "Neo",
+    "job": "The Chosen One"
+}));
+``` 
