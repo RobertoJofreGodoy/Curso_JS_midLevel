@@ -662,9 +662,145 @@ console.log(nuevoJSON);
 Para trabajar con AJAX es necesario tener un servidor.
 AJAX (**Asynchronous JavaScript And XML**) nos permite enviar consultas y recibir respuestas del servidor sin tener que recargar la página, lo hace de manera asíncrona.
 
-- Objeto **XMLHttpRequest**: Es la piedra angular de AJAX, el Objeto **XMLHttpRequest** se puede utilizar para intercambiar datos entre la página web y el Servidor detrás de escena. Esto quiere decir que es posible actualizar partes de una página web sin recargar toda la página.
+### Objeto XMLHttpRequest
+- Objeto **XMLHttpRequest**: Es la piedra angular de AJAX, el **Objeto XMLHttpRequest** se puede utilizar para intercambiar datos entre la página web y el Servidor detrás de escena. Esto quiere decir que es posible actualizar partes de una página web sin recargar toda la página.
 
+De la siguiente manera creamos un nuevo objeto **XMLHttpRequest**:
 ```js
 const peticion = new XMLHttpRequest;
 ```
-seguir en https://www.w3schools.com/js/js_ajax_http.asp 
+Ver todos los métodos en [w3schools](https://www.w3schools.com/js/js_ajax_http.asp) 
+
+- **Objeto ActiveXObject**: Las antiguas versiones de Internet Explorar no soportan el objeto XMLHttpRequest, y para ello utilizamos el **objeto ActiveXObject**, que funciona de igual menera que XMLHttpRequest.
+En caso de que queramos cubrir la mayor cantidad de usuarios posibles se recomienda crear este objeto y utilizarlo en caso de que un usuario se conecte desde un navegador que no soporte XMLHttpRequest:
+
+```js
+if (window.XMLHttpRequest) { //en caso de que exista el Objeto XMLHttpRequest, lo creamos
+    peticion = new XMLHttpRequest;
+} else{
+    peticion = new ActiveXObject("Microsoft.XMLHTTP"); 
+    //Este es el objeto de Internet Explorer
+}
+``` 
+No cuesta nada añadir esta linea de código, se recomienda utilizarla.
+
+### Enviar una solicitud a un servidor
+El **objeto XMLHttpRequest** se utiliza para **intercambiar datos** con un servidor
+Para enviar una solicitud a un servidor, utilizamos los métodos **open()** y **send()** del objeto XMLHttpRequest.
+
+el método **open()** acepta varios parámetros:
+ -  open(method, url, async)
+    - method: el tipo de petición: **GET** o **POST**.
+    - url: la ubicación del servidor (archivo).
+    - async: true (asincrono) o falso (sincrono).
+    - user: nombre de usuario (Opcional).
+    - psw: contraseña (Opcional)
+el método **send()** se utiliza tanto para peticiones **GET** cómo para **POST**:
+- **send()**: utilizado para **GET**.
+- **send(string)**: utilizado para **POST**.
+
+### ¿GET O POST?
+**GET** es más simple y rápido que **POST** y puede ser utilizado en más casos.
+
+| Aspecto | GET | POST |
+| ------------- | ------------- | ------------- |
+| Los datos son visibles en la URL  | SI  | NO  |
+| Los datos pueden permanecer en el historial del navegador  | SI  | NO  |
+| Una URL puede ser guardada conteniendo parámetro de un envío de datos  | SI  | NO  |
+| Existen restricciones en la longitud de los datos enviados  | SI (no se puede superarr la longitud máxima de una url) | NO  |
+| Se considera preferible para envío de datos sensibles  | NO (Los datos además de ser visibles pueden quedar almacenados en logs)  | SI (Sin que esto signifque que por utilizar POST haya seguridad asegurada) |
+| Codificacción en formularios  | applitation/x-www-form-urlencoded  | applitation/x-www-form-urlencoded ó multipart/form-data (se usa multipart para envío de datos binarios, por ejemplo ficheros)  |
+| Restricciones de tipos de datos  | SI (sólo ASC-II)  | NO  |
+| Se considera preferible para disparar acciones  | NO  | SI  |
+| Rieso de cacheado de datos recuperados en los navegadores  | SI  | NO  |
+| Posibles ataqwues e intentos de hackeo  | SI (con mucha facilidad) | SI (con más dificultad) |
+
+Siempre utilizar peticiones **POST para**:
+- Cuando no exite opción de utilizar un archivo caché (actualizar un archivo o base de datos en el servidor).
+- Para enviar una gran cantidad de datos al servidor (POST no tiene limitaciones de tamaño).
+- Para enviar inputs de usuarios (Puede contener caracteres desconocidos), POST es más robusto y seguro que GET. 
+
+### Peticiones GET
+Una petición **GET** simple:
+```js
+const peticion = new XMLHttpRequest;
+
+//Llamamos a un archivo JSON local
+peticion.open("GET","json.txt",true); 
+
+//Si no definimos *send()*, la petición no se envía
+peticion.send();
+```
+
+El **objeto XMLHttpRequest** tiene propiedades, y para saber si una petición de realizó de manera correcta tenemos un código de respuesta (**readyState**) y un **status**
+- **readyState**: Mantiene el estado de la petición del objeto XMLHttpRequest, tenmos los siguientes códigos:
+    - 0: petición NO inicializada.
+    - 1: conexión con el servidor establecida.
+    - 2: petición recibida.
+    - 3: procesando petición
+    - 4: la petición se ha finalizado y la respuesta está lista.
+- **status**: Devuelve el número de estado de la petición:
+    - 200: "OK"
+    - 403: "Forbidden"
+    - 404: "Not Found"
+    - ver [lista completa](https://www.w3schools.com/tags/ref_httpmessages.asp)
+
+Entonces, para poder ver la respuesta del servidor, nuestra petición debe tener por lo menos un **readyState** ==3 y un **status**== 200, aunque se recomienda que el *readyState sea == 4*.
+
+```js
+const peticion = new XMLHttpRequest;
+
+/*
+Vamos a indicarle al objeto XMLHttpRequest *peticion* 
+que escuche el evento "readystatechange", 
+este evento indica cuando al propiedad "readyState" cambia,
+y cuando readyState sea 4 y el status 200,
+tendremos de respuesta el contenido del "json.txt"
+*/
+
+peticion.addEventListener("readystatechange",()=>{ 
+    if (peticion.readyState== 4 && peticion.status == 200) {
+        console.log(peticion.response);
+    }
+});
+
+peticion.open("GET","json.txt");
+peticion.send();
+``` 
+
+Pero hoy en día, tenemos un evento que nos permite evitar hacer estas validaciones:
+
+```js
+const peticion = new XMLHttpRequest;
+
+peticion.addEventListener("load",()=>{ 
+        console.log(peticion.response);
+});
+
+peticion.open("GET","json.txt");
+peticion.send();
+``` 
+
+¿Cómo trabajamos con los datos que obtuvimos con nuestra petición?
+
+```js
+const peticion = new XMLHttpRequest;
+
+peticion.addEventListener("load",()=>{
+    let respuesta;
+    respuesta = peticion.response
+    console.log(JSON.parse(respuesta).nombre); 
+    /*
+    Deserealizamos el JSON y ahora podemos acceder a sus propiedades como un objeto
+    */
+});
+
+peticion.open("GET","json.txt");
+peticion.send();
+``` 
+
+### Peticiones POST
+
+
+
+
