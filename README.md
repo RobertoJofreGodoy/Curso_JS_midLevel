@@ -916,18 +916,18 @@ fetch("https://reqres.in/api/users",
 ``` 
 
 ## Librería Axios
+**Axios** es una librería que sería el reemplazo más moderno de **Fetch**, al igual que Fetch es el reemplazdo del **objeto XMLHttpRequest**.
 #### Fetch o Axios
 - **Axios**: Se recomienda si el sitio web requiere de muchas peticiones al servidor.
 - **Fetch**: Se recomienda si el sitio web realiza pocas peticiones.
 
-[Instalar Axios] (https://github.com/axios/axios)
+Cómo [Instalar Axios](https://github.com/axios/axios)
 
-**Axios** es una librería que sería el reemplazo más moderno de **Fetch**, al igual que Fetch es el reemplazdo del **objeto XMLHttpRequest**.<br>
 **Axios** está basada en el **objeto XMLHttpRequest**, pero extremadamente optimizado, **Axios** es ideal cuando queremos trabajar con un sitio web que constantemente está solicitando y enviando peticiones a un servidor.
 
-**Axios** está **basado en Promesas** y utiliza el **objeto XMLHttpRequest**, por defecto utiliza el método **GET** y configura los **headers** de manera automática
+**Axios** está **basado en Promesas** y utiliza el **objeto XMLHttpRequest**, por defecto utiliza el método **GET** y configura los **headers** de manera automática.
 
-Axios devuelve una Promesa pero que no necesitamos desencapsular, podemos acceder a la respuesta con solo un **then()**:
+**Axios** devuelve una Promesa pero que no necesitamos desencapsularla, podemos acceder a la respuesta con solo un **then()**:
 ```js
 axios("json.txt")
     .then(texto => console.log(texto))
@@ -939,12 +939,12 @@ axios("json.txt")
 ``` 
 
 ### Peticiones POST con Axios
-Axios nos permite pasarle como método el tipo de peticiones que queremos realizar, como dijimos, por defecto utiliza **GET** pero en caso de querer indicarselo lo hariamos de la siguiente manera:
+**Axios** nos permite pasarle como método el tipo de peticiones que queremos realizar, como dijimos, por defecto utiliza **GET** pero en caso de querer indicarselo lo hariamos de la siguiente manera:
 ```js
 axios.get("json.txt") //Así indicamos el método que debe utilizar
     .then(texto => console.log(texto.data))
 ```
-Para hacer una petición POST es necesario indicar la información que queremos enviar, esto se indica como Objeto en el 2do parametro de **Axios**, y **no es necesario serealizarlo**
+Para hacer una petición **POST** es necesario indicar la información que queremos enviar, esto se indica como Objeto en el 2do parametro de **Axios**, y **no es necesario serealizarlo**.<br>
 Para la petición POST utilizaremos la siguiente [página](https://reqres.in)
 
 ```js
@@ -958,3 +958,5 @@ axios.post("https://reqres.in/api/users",
     })
 ``` 
 **Axios** optimiza enormemente el código y los tiempos de respuesta de los Request
+
+## Fetch y Axios con Async/Await
