@@ -960,3 +960,81 @@ axios.post("https://reqres.in/api/users",
 **Axios** optimiza enormemente el código y los tiempos de respuesta de los Request
 
 ## Fetch y Axios con Async/Await
+Vamos a crear una función con Fetch que nos permita consultar el contenido de nuestro archivo "json.txt":
+```js
+const getName = ()=>{
+    
+    fetch("json.txt")
+        .then(res => {
+            if (res.ok) Promise.resolve(res) //Obtenemos la promesa con los datos encapsulados
+            else Promise.reject(res);
+        })
+        .then(res => console.log(res)) //desencapsulamos los datos
+        .catch(e => console.log(e))
+}
+``` 
+### ¿Que ocurrirá si llamamos a este método?
+```js
+getName();
+``` 
+#### Siempre obtendremos *undefined* debido a que la función se ejecuta sin esperar la respuesta de la petición **Fetch**
+Para que este código funcione correctamente debemos utilizar **Async/Await**: <br>
+**NOTA**: recordemos que **Await** realiza un **then()** automáticamente.
+```js
+const getName = async ()=>{
+    let peticion = await fetch("json.txt"); 
+    let resultado = await peticion.json();
+    console.log(resultado);
+}
+
+getName();
+``` 
+Ahora si tenemos una función asincrona que espera a obtener la respuesta para ejecutarse.
+
+vamos a Crear una pa´gina sencilla que al apretar un botón nos imprima en pantalla la información del json
+
+#### HTML
+```html
+<body>
+    <button id="boton">Obtener Info</button>
+    <div class="respuesta"></div>
+    <script src="script.js"></script>
+</body>
+```
+#### JavaScript
+```js
+const getName = async ()=>{
+    let peticion = await fetch("json.txt");
+    let resultado = await peticion.json();
+    let HTMLCode = `Nombre: ${resultado.nombre} <br>
+                    Edad: ${resultado.edad}`;
+    document.querySelector(".respuesta").innerHTML = HTMLCode;
+}
+
+document.getElementById('boton').addEventListener("click",getName);
+```
+### ¿Cómo se haría con **Axios**?
+Ya vimos que la sintaxis de **Axios** es muy parecida a la de **Fetch** pero nos ahorra tener que desencapsular la promesa que **Fetch** nos devuelve, por lo que podemos acceder directamente a la **data**.
+
+#### HTML
+```html
+<body>
+    <button id="boton">Obtener Info</button>
+    <div class="respuesta"></div>
+    <!-- Llamamos a la libreria de Axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="script.js"></script>
+</body>
+```
+#### JavaScript
+```js
+const getName = async ()=>{
+    let peticion = await axios("json.txt"); //Reemplazamos Fetch por Axios
+    let resultado = peticion.data; //Como accedemos directamente a la Promesa, instaciamos una variable con el Objeto json para poder trabajarlo más comodamente
+    let HTMLCode = `Nombre: ${resultado.nombre} <br>
+                    Edad: ${resultado.edad}`;
+    document.querySelector(".respuesta").innerHTML = HTMLCode;
+}
+
+document.getElementById('boton').addEventListener("click",getName);
+```
