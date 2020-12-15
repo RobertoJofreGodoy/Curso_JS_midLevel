@@ -6,7 +6,7 @@
 # Capitulo 7: Objeto Window
 Es el **Objeto más importante en la Jerarquía** y todos dependen de él, y contiene todo para manipular la ventana del navegador.
 - Hereda las propiedadesd de **EventTarget**. (que veremos más adelante).
-- **Open()**: Carga un recurso den el contecto de un nuevo navegador o uno que ya existe.
+- **Open()**: Carga un recurso en el contexto de un nuevo navegador o uno que ya existe.
 ```js
 let googleURL = "https://www.google.com";
 let ventana = window.open(googleURL);
@@ -73,7 +73,7 @@ window.scroll(0,500);
 - **moveBy()**: Mueve la ventana en una ubicación relativa.
 - **MoveTo()**: Mueve la ventana en una ubicación absoluta
 
-### Objetos barptop:
+### Objetos bartop:
 Nos permite saber si un objeto es visible o no, devuelve *True* o *False*
 - **locationbar**
 - **menubar**
@@ -896,7 +896,7 @@ fetch("json.txt") //No es necesario instanciar Fetch en una variable
     .then(texto => console.log(texto))
 ``` 
 ### Petición POST con Fetch
-**NOTA**: la petición post la haremos hacia la siguiente [página](https://reqres.in/).
+**NOTA**: la petición post la haremos hacia la siguiente [página](https://reqres.in/). <br>
 Como ya se indicó, **Fetch** utiliza de manera predeterminada el método GET como petición, para módificar esto, **Fetch** nos permite pasarle una 2do parámetro cómo **Objeto** después de la URL.
 Este Objeto nos permite indicarle el **método**, el **Body** de la petición (los datos) y los **headers** que son otro **Objeto** que contendría lo mismo que utilizamos para el método **setRequestHeader** de **AJAX**:
 
@@ -914,3 +914,47 @@ fetch("https://reqres.in/api/users",
     .then(archivo => archivo.json())
     .then(texto => console.log(texto))
 ``` 
+
+## Librería Axios
+#### Fetch o Axios
+- **Axios**: Se recomienda si el sitio web requiere de muchas peticiones al servidor.
+- **Fetch**: Se recomienda si el sitio web realiza pocas peticiones.
+
+[Instalar Axios] (https://github.com/axios/axios)
+
+**Axios** es una librería que sería el reemplazo más moderno de **Fetch**, al igual que Fetch es el reemplazdo del **objeto XMLHttpRequest**.<br>
+**Axios** está basada en el **objeto XMLHttpRequest**, pero extremadamente optimizado, **Axios** es ideal cuando queremos trabajar con un sitio web que constantemente está solicitando y enviando peticiones a un servidor.
+
+**Axios** está **basado en Promesas** y utiliza el **objeto XMLHttpRequest**, por defecto utiliza el método **GET** y configura los **headers** de manera automática
+
+Axios devuelve una Promesa pero que no necesitamos desencapsular, podemos acceder a la respuesta con solo un **then()**:
+```js
+axios("json.txt")
+    .then(texto => console.log(texto))
+    //Esto nos devuelve una Promesa, que si vamos en consola, contiene la data de nuestro request
+``` 
+```js
+axios("json.txt")
+    .then(texto => console.log(texto.data))
+``` 
+
+### Peticiones POST con Axios
+Axios nos permite pasarle como método el tipo de peticiones que queremos realizar, como dijimos, por defecto utiliza **GET** pero en caso de querer indicarselo lo hariamos de la siguiente manera:
+```js
+axios.get("json.txt") //Así indicamos el método que debe utilizar
+    .then(texto => console.log(texto.data))
+```
+Para hacer una petición POST es necesario indicar la información que queremos enviar, esto se indica como Objeto en el 2do parametro de **Axios**, y **no es necesario serealizarlo**
+Para la petición POST utilizaremos la siguiente [página](https://reqres.in)
+
+```js
+axios.post("https://reqres.in/api/users", 
+    { //SIN serealizar
+        nombre: "Roberto",
+        edad: 26
+    })
+    .then(texto => {
+        console.log(texto.data);
+    })
+``` 
+**Axios** optimiza enormemente el código y los tiempos de respuesta de los Request
