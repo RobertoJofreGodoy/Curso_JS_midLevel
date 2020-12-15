@@ -542,7 +542,7 @@ const obtenerInformacion = (text) =>{
     })
 }
 
-//Las promesas, al ser asincronas, permiten que la funcion se ejecute en el momento de obtener la información
+//Las promesas, al ser asíncronas, permiten que la funcion se ejecute en el momento de obtener la información
 obtenerInformacion("1-Roberto").then(resultado=> console.log(resultado));
 ```
 
@@ -989,7 +989,7 @@ const getName = async ()=>{
 
 getName();
 ``` 
-Ahora si tenemos una función asincrona que espera a obtener la respuesta para ejecutarse.
+Ahora si tenemos una función asíncrona que espera a obtener la respuesta para ejecutarse.
 
 vamos a Crear una página sencilla que al apretar un botón nos imprima en pantalla la información del json
 
@@ -1038,3 +1038,8 @@ const getName = async ()=>{
 
 document.getElementById('boton').addEventListener("click",getName);
 ```
+
+## PROBLEMA DE COFLA CAPITULO 13:
+Cofla ya está en su último semestre de la universidad y quiere saber cuantas personas que cursan el último semestre se reciben y cuantas no, esta información la tiene la universidad.
+- Crear un sistema para obtener esa información.
+- Mostrarla ordenadamente en un sitio web

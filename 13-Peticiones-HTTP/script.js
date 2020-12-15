@@ -1,11 +1,16 @@
-const peticion = new XMLHttpRequest;
+const getName = async ()=>{
+    let peticion = await axios("json.txt");
+    let resultado = peticion.data;
+    let HTMLCode = `Nombre: ${resultado.nombre} <br>
+                    Edad: ${resultado.edad}`;
+    document.querySelector(".respuesta").innerHTML = HTMLCode;
+}
 
-peticion.addEventListener("readystatechange",()=>{
-    if (peticion.readyState== 4 && peticion.status == 200) {
-        console.log(peticion.response);
-    }
-});
+document.getElementById('boton').addEventListener("click",getName);
 
+/*
+```js
 
-peticion.open("GET","json.txt");
-peticion.send();
+```
+
+*/

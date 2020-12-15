@@ -1,4 +1,4 @@
 {
-    "Nombre":"Roberto",
-    "Edad":26
+    "nombre":"Roberto",
+    "edad":26
 }
