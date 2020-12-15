@@ -991,7 +991,7 @@ getName();
 ``` 
 Ahora si tenemos una función asincrona que espera a obtener la respuesta para ejecutarse.
 
-vamos a Crear una pa´gina sencilla que al apretar un botón nos imprima en pantalla la información del json
+vamos a Crear una página sencilla que al apretar un botón nos imprima en pantalla la información del json
 
 #### HTML
 ```html
