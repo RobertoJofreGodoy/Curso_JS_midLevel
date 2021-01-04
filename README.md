@@ -580,7 +580,7 @@ const mostrarData = async()=>{ //Le indicamos a la funcion que devuelva una prom
     //Await espera que la promesa le llegue para ejecutar el siguiente código
 }; 
 
-//Por lo que siempre obtendremos la informaicón en el orden que deseamos.
+//Por lo que siempre obtendremos la información en el orden que deseamos.
 mostrarData();
 ```
 
@@ -688,7 +688,7 @@ No cuesta nada añadir esta linea de código, se recomienda utilizarla.
 El **objeto XMLHttpRequest** se utiliza para **intercambiar datos** con un servidor
 Para enviar una solicitud a un servidor, utilizamos los métodos **open()** y **send()** del objeto XMLHttpRequest.
 
-el método **open()** acepta varios parámetros:
+el método **open()** acepta varios parámetros: 
  -  open(method, url, async)
     - method: el tipo de petición: **GET** o **POST**.
     - url: la ubicación del servidor (archivo).
